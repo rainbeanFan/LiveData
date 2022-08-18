@@ -12,11 +12,29 @@ class MainActivity : AppCompatActivity() {
     private var mBinding: ActivityMainBinding? = null
     private var mViewModel: CurrentTimeViewModel? = null
 
+    private var mElectronicProductViewModel: ElectronicProductViewModel? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding!!.root)
-        initData()
+//        initData()
+
+        initElectronicProducts()
+    }
+
+    private fun initElectronicProducts() {
+        mElectronicProductViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        )[ElectronicProductViewModel::class.java]
+
+        mElectronicProductViewModel?.mediatorData()!!.observe(this) { t ->
+            mBinding!!.tvTime.text = "$t"
+        }
+
+        mElectronicProductViewModel?.start()
+
     }
 
 
@@ -40,6 +58,7 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         mViewModel?.stop()
+        mElectronicProductViewModel?.stop()
     }
 
 }
