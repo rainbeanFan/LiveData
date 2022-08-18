@@ -13,10 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LiveData"
         tools:targetApi="31">
-        <service
-            android:name=".LiveDataService"
-            android:enabled="true"
-            android:exported="true" />
 
         <activity
             android:name=".MainActivity"
